@@ -1,0 +1,50 @@
+.brainstorming-panel {
+  position: absolute; /* Position relative to a parent container */
+  top: 10px; /* Adjust based on the button's position */
+  right: 60px; /* Slightly offset from the Share button */
+  width: 300px;
+  height: auto; /* Allow it to resize dynamically */
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 1000; /* Ensure it's above the content */
+}
+
+
+.brainstorming-panel h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.brainstorming-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.brainstorming-panel li {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.brainstorming-panel .close-button {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: #999;
+}
+
+.brainstorming-panel .close-button:hover {
+  color: #333;
+}
+
+/* Optional: To ensure the panel remains above other content */
+body {
+  overflow: hidden;
+}
