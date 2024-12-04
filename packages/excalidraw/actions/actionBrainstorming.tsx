@@ -1,5 +1,5 @@
 import { register } from "./register";
-import { getHuggingFaceResponse } from "../../utils/openai"; // Your API integration
+import { getHuggingFaceResponse } from "../../utils/hfAI"; // Your API integration
 import { StoreAction } from "../store";
 
 export const Brainstorming = register({
@@ -33,8 +33,6 @@ export const Brainstorming = register({
         })
         .join("\n");
 
-      console.log("Screen Content:", screenContent);
-
       if (!screenContent.trim()) {
         return {
           appState: {
@@ -45,13 +43,24 @@ export const Brainstorming = register({
         };
       }
 
-      // Prepare OpenAI prompt
-      const prompt = `Based on the following content, generate 3-4 brainstorming questions:\n\n"${screenContent}"`;
-      console.log("OpenAI Prompt:", prompt);
+      const prompt = `Given the following information about the elements on the screen, generate 3-4 questions based on the texts in the content 
+                          that are relevant and help in brainstorming.:
+                          "${screenContent}"`;
 
-      // Get questions from OpenAI API
-      const { questions } = await getHuggingFaceResponse(prompt);
-      console.log("Questions from OpenAI:", questions);
+      // Get questions from Hugging Face API
+      const { text } = await getHuggingFaceResponse(prompt);
+      console.log("Generated questions:", text);
+
+      // Use a more general regex to capture all numbered questions (e.g., "1. What...", "2. How...", etc.)
+      const questionsStartIndex = text.search(/\d+\.\s+/);  // This should match any numbered question
+      const questions = questionsStartIndex !== -1
+        ? text.slice(questionsStartIndex)  // Slice from the first numbered question
+            .split("\n")                    // Split into individual lines
+            .map((line: string) => line.trim())  // Clean up each question
+            .filter(Boolean)              // Remove empty lines
+        : [];
+
+      console.log("questions:", questions);
 
       // Update app state with brainstorming questions
       return {

@@ -59,12 +59,12 @@ import Scene from "../scene/Scene";
 import { LaserPointerButton } from "./LaserPointerButton";
 import { TTDDialog } from "./TTDDialog/TTDDialog";
 import { Stats } from "./Stats";
-import {Brainstorming} from "../actions/actionBrainstorming"
 import { actionToggleStats} from "../actions";
 import ElementLinkDialog from "./ElementLinkDialog";
 
 import "./LayerUI.scss";
 import "./Toolbar.scss";
+import BrainstormButton from "./BrainstormButton";
 
 interface LayerUIProps {
   actionManager: ActionManager;
@@ -345,9 +345,12 @@ const LayerUI = ({
                 userToFollow={appState.userToFollow?.socketId || null}
               />
             )}
-            <div className="layer-ui_storming">
-              <button onClick={() => actionManager.executeAction(Brainstorming)}>brainstorming</button>
-            </div>
+            <BrainstormButton
+              title={t("toolBar.brainstorm")}
+              isMobile={false}
+              appState= {appState}
+              actionManager = {actionManager}
+            />
             {renderTopRightUI?.(device.editor.isMobile, appState)}
             {!appState.viewModeEnabled &&
               appState.openDialog?.name !== "elementLinkSelector" &&
@@ -416,24 +419,6 @@ const LayerUI = ({
         {t("toolBar.library")}
         
       </DefaultSidebar.Trigger>
-      <DefaultSidebar.Trigger
-        __fallback
-        icon={LibraryIcon}
-        title={capitalizeString(t("toolBar.brainstorming"))}
-        onToggle={(open) => {
-          if (open) {
-            trackEvent(
-              "sidebar",
-              `${DEFAULT_SIDEBAR.name} (open)`,
-              `button (${device.editor.isMobile ? "mobile" : "desktop"})`,
-            );
-          }
-        }}
-        tab={DEFAULT_SIDEBAR.defaultTab}
-      >
-        {t("toolBar.brainstorming")}
-      </DefaultSidebar.Trigger>
-
       <DefaultOverwriteConfirmDialog />
       {appState.openDialog?.name === "ttd" && <TTDDialog __fallback />}
       {/* ------------------------------------------------------------------ */}

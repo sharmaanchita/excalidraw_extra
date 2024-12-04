@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getHuggingFaceResponse = async (prompt) => {
-  const apiKey = import.meta.env.VITE_APP_HUGGING_FACE_API_KEY;  // Replace with your Hugging Face token
-  const endpoint = "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-2.7B"; // Replace with the model of your choice
+export const getHuggingFaceResponse = async (prompt: string): Promise<{ text: string }> => {
+  const apiKey = import.meta.env.VITE_APP_HUGGING_FACE_API_KEY;  
+  const endpoint = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"; 
   console.log("API Key:", apiKey);
 
   if (!apiKey) {

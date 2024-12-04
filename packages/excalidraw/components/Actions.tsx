@@ -37,7 +37,6 @@ import {
   shouldAllowVerticalAlign,
   suppportsHorizontalAlign,
 } from "../element/textElement";
-
 import "./Actions.scss";
 import DropdownMenu from "./dropdownMenu/DropdownMenu";
 import {
@@ -85,6 +84,8 @@ export const canChangeBackgroundColor = (
     targetElements.some((element) => hasBackground(element.type))
   );
 };
+
+
 
 export const SelectedShapeActions = ({
   appState,

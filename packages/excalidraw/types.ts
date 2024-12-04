@@ -428,7 +428,10 @@ export type UIAppState = Omit<
   | "cursorButton"
   | "scrollX"
   | "scrollY"
->;
+> & {
+  brainstormingQuestions?: string[]; // Optional if it may not always be set
+  dropdownVisible?: boolean; // Optional if it may not always be set
+};
 
 export type NormalizedZoomValue = number & { _brand: "normalizedZoom" };
 

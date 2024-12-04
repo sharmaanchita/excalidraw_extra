@@ -1,5 +1,4 @@
 import polyfill from "../packages/excalidraw/polyfill";
-import { BrainstormingPanel } from "./brainstrom/BrainstormingPanel";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { trackEvent } from "../packages/excalidraw/analytics";
 import { getDefaultAppState } from "../packages/excalidraw/appState";
@@ -27,7 +26,6 @@ import {
   TTDDialogTrigger,
   StoreAction,
   reconcileElements,
-  Sidebar,
 } from "../packages/excalidraw";
 import type {
   AppState,
@@ -130,8 +128,6 @@ import DebugCanvas, {
 import { AIComponents } from "./components/AI";
 import { ExcalidrawPlusIframeExport } from "./ExcalidrawPlusIframeExport";
 import { isElementLink } from "../packages/excalidraw/element/elementLink";
-import { SidebarTabTrigger } from "@excalidraw/excalidraw/components/Sidebar/SidebarTabTrigger";
-import { FilledButton } from "@excalidraw/excalidraw/components/FilledButton";
 
 polyfill();
 
@@ -329,7 +325,6 @@ const initializeScene = async (opts: {
 };
 
 const ExcalidrawWrapper = () => {
-  const [isBrainstormingPanelOpen, setBrainstormingPanelOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const isCollabDisabled = isRunningInIframe();
 
@@ -340,14 +335,6 @@ const ExcalidrawWrapper = () => {
 
   // initial state
   // ---------------------------------------------------------------------------
-
-  const handleBrainstormingClick = () => {
-    setBrainstormingPanelOpen(true);
-  };
-
-  const handleClosePanel = () => {
-    setBrainstormingPanelOpen(false);
-  };
 
   const initialStatePromiseRef = useRef<{
     promise: ResolvablePromise<ExcalidrawInitialDataState | null>;
